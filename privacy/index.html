@@ -9,12 +9,6 @@
     />
     <title>Privacy Policy — TIWA</title>
     <link rel="canonical" href="https://tiwa.loopbugs.com/privacy/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -142,11 +136,6 @@
               Storage bucket via short-lived signed URLs. This is study content,
               not participant-uploaded media.
             </li>
-            <li>
-              <strong>Auth session tokens</strong> — the anonymous Supabase
-              session is persisted on-device (via AsyncStorage) so the app can
-              reconnect securely.
-            </li>
           </ul>
           <p>
             The backend schema also allows additional event types
@@ -195,6 +184,13 @@
             <li>
               <strong>Language preference</strong> and local “days opened”
               counters for the progress UI.
+            </li>
+            <li>
+              <strong>Auth session tokens</strong> — the anonymous Supabase
+              session token is stored on the device (via AsyncStorage) and used
+              locally to authenticate requests to Supabase when syncing. The
+              token itself is not a separate research dataset uploaded to the
+              backend.
             </li>
           </ul>
 
@@ -358,8 +354,9 @@
           <p>
             Because Loopbugs LTD processes app data on behalf of the study,
             rights requests should usually go to the study team / controller
-            first. You may also contact Loopbugs using the email below and we
-            will help route your request.
+            first. You may also contact Loopbugs at
+            <a href="mailto:privacy@loopbugs.com">privacy@loopbugs.com</a>
+            and we will help route your request.
           </p>
           <p>
             You may also have the right to complain to a supervisory authority,
@@ -373,10 +370,7 @@
           <h2>9. Contact</h2>
           <p>
             Privacy and data-rights questions about TIWA:
-            <span class="placeholder"
-              >[TO CONFIRM: contact email for privacy / study data
-              requests]</span
-            >.
+            <a href="mailto:privacy@loopbugs.com">privacy@loopbugs.com</a>.
           </p>
           <p>
             Developer (Loopbugs LTD): Office 4, Second Floor Park Lorne, 111
