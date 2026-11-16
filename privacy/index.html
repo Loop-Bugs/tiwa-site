@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Privacy policy for the TIWA Android app used in a University of Ibadan perinatal depression research study."
+    />
+    <title>Privacy Policy — TIWA</title>
+    <link rel="canonical" href="https://tiwa.loopbugs.com/privacy/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="TIWA home">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span>TIWA</span>
+      </a>
+      <nav aria-label="Primary">
+        <a class="nav-link" href="/privacy/" aria-current="page">Privacy</a>
+      </nav>
+    </header>
+
+    <main id="main" class="policy">
+      <header class="policy-header">
+        <p class="eyebrow">TIWA app</p>
+        <h1>Privacy Policy</h1>
+        <p class="policy-meta">
+          Effective date: 16 November 2026<br />
+          Applies to the TIWA Android application (package
+          <code>com.loopbugs.tiwa</code>).
+        </p>
+      </header>
+
+      <nav class="toc" aria-labelledby="toc-heading">
+        <h2 id="toc-heading">Contents</h2>
+        <ol>
+          <li><a href="#who">Who we are</a></li>
+          <li><a href="#scope">Who this policy covers</a></li>
+          <li><a href="#collect">What we collect and why</a></li>
+          <li><a href="#store">How information is stored and secured</a></li>
+          <li><a href="#share">Sharing, selling, and advertising</a></li>
+          <li><a href="#children">Children and adolescents</a></li>
+          <li><a href="#retention">Retention and deletion</a></li>
+          <li><a href="#rights">Your rights</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#changes">Changes to this policy</a></li>
+        </ol>
+      </nav>
+
+      <article>
+        <section id="who">
+          <h2>1. Who we are</h2>
+          <p>
+            TIWA is a wellbeing companion built for a perinatal depression
+            research study involving adolescent girls who are pregnant or caring
+            for babies, associated with the University of Ibadan College of
+            Medicine.
+          </p>
+          <p>
+            <strong>Loopbugs LTD</strong> (company number 16341224), Office 4,
+            Second Floor Park Lorne, 111 Park Road, London NW8 7JL, United
+            Kingdom, develops and operates the TIWA software as a
+            <strong>processor / developer</strong> on behalf of the study team.
+          </p>
+          <p>
+            The research study team is expected to act as the
+            <span class="placeholder"
+              >[TO CONFIRM: data controller identity — University of Ibadan
+              College of Medicine / named principal investigator]</span
+            >
+            for study-related personal data. This policy describes what the TIWA
+            app itself collects and where that information goes, based on the
+            current app source code.
+          </p>
+        </section>
+
+        <section id="scope">
+          <h2>2. Who this policy covers</h2>
+          <p>
+            TIWA is intended only for people enrolled in the research study. It
+            is not aimed at the general public. Access requires consent in the
+            app and a personal PIN on the device.
+          </p>
+          <p class="callout">
+            TIWA does not ask for your real name, phone number, contacts, or
+            location as part of app use. Clinic contact numbers shown in the
+            Support screen are study-configured; dialling them uses your phone’s
+            normal calling features and is not logged by TIWA.
+          </p>
+        </section>
+
+        <section id="collect">
+          <h2>3. What we collect and why</h2>
+          <p>
+            Collection is consent-gated. After you agree in the app, TIWA can
+            create an anonymous install account and sync limited research and
+            operational data when the device is online. If you are offline, some
+            items are queued on the device until a connection is available.
+          </p>
+
+          <h3>3.1 Synced to the study backend (Supabase)</h3>
+          <p>
+            The app uses Supabase (PostgreSQL with row-level security, anonymous
+            authentication, and private object storage). The following leave the
+            device when consent has been given:
+          </p>
+          <ul>
+            <li>
+              <strong>Anonymous install identifier</strong> — a random UUID from
+              Supabase anonymous sign-in, used as the install record and to keep
+              each participant’s rows separate (RLS). Stored with consent flag,
+              consent time, app version, creation time, and (if you reset the
+              PIN) a reset timestamp.
+            </li>
+            <li>
+              <strong>Usage events currently sent by the app</strong> —
+              <code>video_started</code> and <code>video_completed</code> (with
+              video id); <code>todo_added</code> (opaque client id and whether a
+              voice note exists, not the audio itself); and
+              <code>todo_completed</code> (opaque client id). Events include
+              timestamps. Metadata is size-limited.
+            </li>
+            <li>
+              <strong>To-do metadata only</strong> — opaque client id,
+              completed / deleted flags, and related timestamps. Task titles,
+              written notes, and voice recordings are
+              <strong>not</strong> uploaded.
+            </li>
+            <li>
+              <strong>Study video content downloads</strong> — educational
+              clips and a manifest may be fetched from a private Supabase
+              Storage bucket via short-lived signed URLs. This is study content,
+              not participant-uploaded media.
+            </li>
+            <li>
+              <strong>Auth session tokens</strong> — the anonymous Supabase
+              session is persisted on-device (via AsyncStorage) so the app can
+              reconnect securely.
+            </li>
+          </ul>
+          <p>
+            The backend schema also allows additional event types
+            (<code>app_opened</code>, <code>app_backgrounded</code>,
+            <code>video_paused</code>, <code>mood_check_in</code>,
+            <code>progress_viewed</code>). As of the code reviewed for this
+            policy (tiwa-app <code>main</code>, November 2026), those types are
+            allow-listed for future use but are <strong>not currently
+            emitted</strong> by the running app screens. Mood check-ins remain
+            on-device only (see below).
+          </p>
+
+          <h3>3.2 Kept only on your device</h3>
+          <ul>
+            <li>
+              <strong>PIN</strong> — a 4-digit PIN is hashed with PBKDF2-SHA256
+              (100,000 iterations) and stored in the device secure store. The
+              plain PIN is never sent to the server.
+            </li>
+            <li>
+              <strong>Mood check-ins</strong> — mood level and optional feeling
+              tags are saved locally for your use in the app. They are not
+              queued for sync in the current code.
+            </li>
+            <li>
+              <strong>To-do text and voice notes</strong> — task titles/bodies
+              live in the on-device encrypted database. Voice notes are
+              encrypted (AES-GCM) and stored in the app’s private file area, not
+              in your phone gallery.
+            </li>
+            <li>
+              <strong>Streaks and trophies</strong> — progress, freezes, and
+              earned trophies are stored only in the on-device encrypted
+              database and are not synced.
+            </li>
+            <li>
+              <strong>Video watch position / completion</strong> — playback
+              progress for downloaded videos is stored locally; completion is
+              also reflected in synced events when you finish a video.
+            </li>
+            <li>
+              <strong>Offline study videos</strong> — downloaded clips stay in
+              app-private storage (not the shared media library). Android backup
+              of app data is disabled (<code>allowBackup: false</code>).
+            </li>
+            <li>
+              <strong>Language preference</strong> and local “days opened”
+              counters for the progress UI.
+            </li>
+          </ul>
+
+          <h3>3.3 Permissions</h3>
+          <ul>
+            <li>
+              <strong>Microphone</strong> — requested only so you can record
+              voice notes for clinic to-dos. Recordings stay encrypted on the
+              device.
+            </li>
+            <li>
+              The app checks network connectivity to know when it can sync; it
+              does not use location services for that.
+            </li>
+            <li>
+              Screenshots and screen recording are blocked on native Android
+              builds to reduce accidental exposure of sensitive screens.
+            </li>
+          </ul>
+
+          <h3>3.4 What we do not collect via the app</h3>
+          <ul>
+            <li>Name, email address, phone number, contacts, or precise location as app profile fields</li>
+            <li>Advertising identifiers for ads (TIWA has no ads)</li>
+            <li>
+              Third-party analytics or crash-reporting SDKs such as Firebase
+              Analytics, Crashlytics, Sentry, Amplitude, or similar — none are
+              present in the app dependencies reviewed for this policy
+            </li>
+          </ul>
+          <p>
+            Optional over-the-air updates may be delivered through Expo’s update
+            service (configured in the app build). Google Play may process
+            install and update data under Google’s own terms when you install
+            TIWA from Play.
+          </p>
+        </section>
+
+        <section id="store">
+          <h2>4. How information is stored and secured</h2>
+          <ul>
+            <li>
+              <strong>On device:</strong> participant content uses an encrypted
+              SQLite database (SQLCipher via Expo SQLite), with the database key
+              and voice encryption key held in the platform secure store. Voice
+              files are encrypted at rest in app-private storage.
+            </li>
+            <li>
+              <strong>In transit / cloud:</strong> consented sync uses HTTPS to
+              Supabase. Database row-level security limits each anonymous
+              account to its own install, events, and to-do metadata rows.
+            </li>
+            <li>
+              <strong>Hosting region:</strong>
+              <span class="placeholder"
+                >[TO CONFIRM: Supabase project hosting region / country]</span
+              >.
+            </li>
+            <li>
+              <strong>Forgot PIN:</strong> resetting the PIN wipes local app
+              data (database, keys, voice files, video cache, local preferences)
+              and, when online, marks the server install as reset. It does not
+              by itself delete historical server rows already stored for the
+              study —
+              <span class="placeholder"
+                >[TO CONFIRM: whether the study team deletes or retains
+                historical server events/todos after a device reset]</span
+              >.
+            </li>
+          </ul>
+        </section>
+
+        <section id="share">
+          <h2>5. Sharing, selling, and advertising</h2>
+          <div class="callout safe">
+            We do not sell your data. TIWA does not show advertising or share
+            data with advertisers.
+          </div>
+          <p>Information may be accessed by:</p>
+          <ul>
+            <li>
+              The research study team, for the purposes described in the study
+              consent materials and ethics approval
+            </li>
+            <li>
+              Loopbugs LTD staff acting as developers/processors, only as needed
+              to build, host configuration, and support the app
+            </li>
+            <li>
+              Infrastructure providers that process data on our instructions —
+              principally Supabase for backend storage and auth, and Expo for
+              app updates/builds. Google Play processes distribution-related
+              data when you use Play
+            </li>
+          </ul>
+          <p>
+            We do not share participant app data with other third parties for
+            their own marketing. Legal disclosure would only occur if required
+            by applicable law.
+          </p>
+        </section>
+
+        <section id="children">
+          <h2>6. Children and adolescents</h2>
+          <p>
+            TIWA is designed for adolescent participants in a supervised
+            research study (pregnant adolescents and adolescent mothers), not
+            for unsupervised general use by children. Enrolment and consent
+            follow the study’s ethics-approved procedures
+            <span class="placeholder"
+              >[TO CONFIRM: age range covered by the ethics approval and any
+              parent/guardian consent requirements]</span
+            >.
+          </p>
+          <p>
+            Because the app may process health-related wellbeing information
+            about adolescents, extra care is taken to minimise what leaves the
+            device and to avoid collecting unnecessary identifiers.
+          </p>
+        </section>
+
+        <section id="retention">
+          <h2>7. Retention and deletion</h2>
+          <p>
+            <strong>On your device:</strong> you can wipe local TIWA data by
+            using Forgot PIN / reset in the app, or by clearing/uninstalling the
+            app. Uninstalling removes on-device storage; it may not remove data
+            already synced to the study backend.
+          </p>
+          <p>
+            <strong>On the study backend:</strong> retention of install records,
+            events, and to-do metadata follows the research protocol and ethics
+            approval —
+            <span class="placeholder"
+              >[TO CONFIRM: retention period for server-side study data after
+              the study ends]</span
+            >. Soft-deleted to-do metadata may be retained for research
+            integrity rather than hard-deleted immediately.
+          </p>
+          <p>
+            To request deletion of server-side data linked to your install,
+            contact the study team using the details below. We will need enough
+            information for the study team to locate the relevant records
+            <span class="placeholder"
+              >[TO CONFIRM: process for linking a device install to a
+              participant for deletion requests]</span
+            >.
+          </p>
+        </section>
+
+        <section id="rights">
+          <h2>8. Your rights</h2>
+          <p>
+            Depending on where you live and how the study is organised, you may
+            have rights under the UK GDPR and/or the Nigeria Data Protection Act
+            2023. These can include rights to be informed, to access, to
+            rectification, to erasure, to restrict processing, to data
+            portability (where applicable), and to object or withdraw consent
+            where processing is based on consent.
+          </p>
+          <p>
+            Because Loopbugs LTD processes app data on behalf of the study,
+            rights requests should usually go to the study team / controller
+            first. You may also contact Loopbugs using the email below and we
+            will help route your request.
+          </p>
+          <p>
+            You may also have the right to complain to a supervisory authority,
+            such as the UK Information Commissioner’s Office (ICO) or the
+            relevant Nigerian data protection authority, if you believe your
+            rights have been infringed.
+          </p>
+        </section>
+
+        <section id="contact">
+          <h2>9. Contact</h2>
+          <p>
+            Privacy and data-rights questions about TIWA:
+            <span class="placeholder"
+              >[TO CONFIRM: contact email for privacy / study data
+              requests]</span
+            >.
+          </p>
+          <p>
+            Developer (Loopbugs LTD): Office 4, Second Floor Park Lorne, 111
+            Park Road, London NW8 7JL, United Kingdom.
+          </p>
+          <p>
+            Study / research team contact:
+            <span class="placeholder"
+              >[TO CONFIRM: study team contact name, email, and postal
+              address]</span
+            >.
+          </p>
+        </section>
+
+        <section id="changes">
+          <h2>10. Changes to this policy</h2>
+          <p>
+            We may update this privacy policy when the app’s data practices or
+            legal requirements change. The effective date at the top of this
+            page will be revised when that happens. Material changes will be
+            communicated
+            <span class="placeholder"
+              >[TO CONFIRM: how participants are notified of material privacy
+              changes]</span
+            >.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Developed by Loopbugs LTD for the TIWA research study. This page
+        describes the TIWA app’s data practices as implemented in source code;
+        study ethics materials remain authoritative for research consent.
+      </p>
+      <p><a href="/">Back to TIWA home</a></p>
+    </footer>
+  </body>
+</html>
